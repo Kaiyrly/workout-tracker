@@ -1,0 +1,14 @@
+<h1>Exercises</h1>
+{% if user.is_authenticated %}
+<a href="{% url 'workoutnotes:create_exercise' %}">Create Exercise</a>
+{% endif %}
+<ul>
+  {% for exercise in exercises %}
+  <li>
+    {{exercise}}
+    <a href="{% url 'workoutnotes:exercise_detail'  exercise.id %}">View</a>
+  </li>
+  {% empty %}
+  <li>No exercises.</li>
+  {% endfor %}
+</ul>

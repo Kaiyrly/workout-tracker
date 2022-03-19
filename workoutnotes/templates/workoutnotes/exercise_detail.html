@@ -1,0 +1,13 @@
+<h1>Exercise Detail</h1>
+<ul>
+  <li>Name: {{exercise.name}}</li>
+  <li>Created: {{exercise.created|date}}</li>
+  <li>Sets: {{exercise.sets}}</li>
+  <li>Reps: {{ exercise.reps}}</li>
+  <li>Weight: {{exercise.weight}}</li>
+</ul>
+
+{% if user == exercise.created_by %}
+<a href="{% url 'workoutnotes:update_exercise' exercise.id %}">Edit</a>
+<a href="{% url 'workoutnotes:delete_exercise' exercise.id %}">Delete</a>
+{% endif %}
