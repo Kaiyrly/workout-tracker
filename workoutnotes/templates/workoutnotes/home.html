@@ -1,3 +1,9 @@
 <h1>Tracker Home Page</h1>
-{% if user.is_authenticated %} Hello, {{user.username}}! {% else %} Please
+{% if user.is_authenticated %} 
+
+Hello, {{user.username}}!
+  
+<a href="{% url 'workoutnotes:exercises_list' %}">View exercises</a>
+
+{% else %} Please
 <a href="{% url 'workoutnotes:login' %}">Login</a> {% endif %}
