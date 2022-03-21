@@ -1,0 +1,58 @@
+{% extends 'workoutnotes/home.html' %}
+
+{% block content %}
+
+    <div class="dropdown">
+        <button class="dropdown_button">&raquo;</button>
+        <div class="dropdown_content">
+            <!--<a href="/edit-training/{{training.id}}/">Edit</a>-->
+            <a href="">Delete</a>
+        </div>
+    </div>
+
+    <h1>{{ workout.name }}</h1>
+    
+    
+
+    <ul class="training_times">
+        <li><b>Start:</b> {{ workout.start_time|date:"m/d Y" }}</li>
+        <!--<li><b>End:</b> {{ training.time_end|date:'Y-m-d H:i' }}</li>-->
+        <li><b>Duration:</b> {{ workout.duration }}</li>
+    </ul>
+
+    
+    <table class="table table-bordered border-primary">
+        <th>Exercise</th>
+        <th colspan="2">Weight</th>
+        <th colspan="8">Sets</th>
+        {% for exercise in exercises %}
+            <tr>
+                <td>{{ exercise.name }}</td>
+                <td>{{ exercise.weight }} kg</td>
+                {% for r in exercise.reps.values %}
+                    <td>{{r}}</td>
+                {% endfor %}
+            </tr>
+        {% endfor %}
+    </table>
+    
+
+{% endblock %}
+
+
+<!-- <h1>Exercise Detail</h1>
+<ul>
+  <li>Name: {{exercise.name}}</li>
+  <li>Created: {{exercise.created|date}}</li>
+  <li>Sets: {{exercise.sets}}</li>
+  <li>Reps: {{ exercise.reps}}</li>
+  <li>Weight: {{exercise.weight}}</li>
+</ul>
+
+{% if user == exercise.created_by %}
+<a href="{% url 'workoutnotes:update_exercise' exercise.id %}">Edit</a>
+<a href="{% url 'workoutnotes:delete_exercise' exercise.id %}">Delete</a>
+{% endif %}
+ -->
+
+

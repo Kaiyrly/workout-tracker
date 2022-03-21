@@ -5,7 +5,7 @@ from django.views.generic.list import ListView
 from  django.views.generic.detail import DetailView
 from django.contrib.auth.forms import UserCreationForm
 from django.urls import reverse_lazy
-from .models import Exercise
+from .models import Exercise, Workout, Routine
 from django.contrib.auth import login
 from django.contrib.auth.models import User
 
@@ -20,7 +20,27 @@ class SignupView(FormView):
         login(self.request, user)
         return super().form_valid(form)
 
+class WorkoutListView(ListView):
+    template_name = 'workoutnotes/workout_list.html'
+    model = Workout
+    context_object_name = 'workouts'
 
+def workout_detail_view(request, workout_id):
+    template_name = 'workout_detail.html'
+    workout = Workout.objects.get(id=workout_id)
+    exercises = Exercise.objects.filter(workout=workout)
+    return render(
+        request, 
+        'workoutnotes/workout_detail.html', 
+        {'workout': workout, 'exercises': exercises}
+        )
+
+
+
+class HomeView(TemplateView):
+    template_name = 'workoutnotes/home.html'
+
+##################################################
 class ExerciseCreateView(CreateView):
     model = Exercise
     fields = ['name', 'sets', 'reps', 'weight']
@@ -29,10 +49,6 @@ class ExerciseCreateView(CreateView):
     def form_valid(self, form):
         form.instance.created_by = self.request.user
         return super().form_valid(form)
-
-class ExerciseListView(ListView):
-    model = Exercise
-    context_object_name = 'exercises'
 
 class ExerciseDetailView(DetailView):
     model = Exercise
@@ -58,6 +74,5 @@ class ExerciseDeleteView(DeleteView):
         exercise = self.get_object()
         return self.request.user == exercise.created_by
 
-class HomeView(TemplateView):
-    template_name = 'workoutnotes/home.html'
+
 
