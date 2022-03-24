@@ -20,7 +20,7 @@ class Migration(migrations.Migration):
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('name', models.CharField(max_length=100)),
                 ('sets', models.PositiveIntegerField()),
-                ('reps', models.PositiveIntegerField()),
+                ('repsss', models.JSONField()),
                 ('weight', models.PositiveIntegerField()),
                 ('performed', models.DateTimeField(auto_now_add=True)),
                 ('created', models.DateTimeField(auto_now_add=True)),

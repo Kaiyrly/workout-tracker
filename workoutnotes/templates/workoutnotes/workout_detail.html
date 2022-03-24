@@ -5,8 +5,7 @@
     <div class="dropdown">
         <button class="dropdown_button">&raquo;</button>
         <div class="dropdown_content">
-            <!--<a href="/edit-training/{{training.id}}/">Edit</a>-->
-            <a href="">Delete</a>
+            <a href="/workoutnotes/edit-workout/{{workout.id}}/">Edit</a>
         </div>
     </div>
 
@@ -24,12 +23,12 @@
     <table class="table table-bordered border-primary">
         <th>Exercise</th>
         <th colspan="2">Weight</th>
-        <th colspan="8">Sets</th>
+        <th colspan="8">Series</th>
         {% for exercise in exercises %}
             <tr>
                 <td>{{ exercise.name }}</td>
                 <td>{{ exercise.weight }} kg</td>
-                {% for r in exercise.reps.values %}
+                {% for i, r in exercise.repsss.items %}
                     <td>{{r}}</td>
                 {% endfor %}
             </tr>

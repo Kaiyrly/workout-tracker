@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.contrib.postgres.fields import ArrayField
 
 class Workout(models.Model):
     name = models.TextField(default='My workout')
@@ -16,7 +17,7 @@ class Exercise(models.Model):
     workout = models.ForeignKey(Workout, on_delete=models.CASCADE, default=None)
     name = models.CharField(max_length=100)
     sets = models.PositiveIntegerField()
-    reps = models.PositiveIntegerField()
+    repsss = models.JSONField(blank=True, default={"1": 0})
     weight = models.PositiveIntegerField()
     performed = models.DateTimeField(auto_now_add=True)
     created = models.DateTimeField(auto_now_add=True)
