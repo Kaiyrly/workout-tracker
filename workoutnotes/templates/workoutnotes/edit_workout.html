@@ -32,7 +32,7 @@
 
                 <div class="exercises_form">
                     {% if exercises %}
-                    <form action="/workoutnotes/stop-workout/{{workout.id}}/" method="POST">{% csrf_token %}
+                    <form action="/stop-workout/{{workout.id}}/" method="POST">{% csrf_token %}
                         <!-- training started - show stop button -->
                         
                             <!-- show labels for exercises -->
@@ -81,7 +81,7 @@
                         {% if not workout.start_time %}
                             <div class="control_buttons">
                                 <div class="form_input">  
-                                    <form action="/workoutnotes/start-workout/{{workout.id}}/" method="POST">{% csrf_token %}  
+                                    <form action="/start-workout/{{workout.id}}/" method="POST">{% csrf_token %}  
                                         <input type="submit" class="start" value="Start"/>
                                     </form>
                                 </div>
@@ -94,9 +94,14 @@
                         
                         <!-- training can be saved only if it started and finished -->
                         {% if workout.start_time and workout.finish_time %}
-                            <form action="/workoutnotes/save-workout/{{workout.id}}/" method="POST">{% csrf_token %}
-                                <div class="form_input">
-                                    <input type="text" class="input_mid" name="name" value="My weight training"/>
+                            <form action="/save-workout/{{workout.id}}/" method="POST">{% csrf_token %}
+                                <div class="mb-3">
+                                    <label for="exampleFormControlInput1" class="form-label">Workout Name</label>
+                                    <input type="text" class="form-control" name = "name" id="exampleFormControlInput1" placeholder="My workout">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="exampleFormControlTextarea1" class="form-label">Notes</label>
+                                    <textarea class="form-control" name = "notes" id="exampleFormControlTextarea1" rows="3"></textarea>
                                 </div>
                                 <div class="form_input">
                                     <input type="submit" id="save_training" value="Save"/>
@@ -114,7 +119,7 @@
                     <br />
                     <div class="add_form">
                         <p class="div_label">Add exercise to the training</p>
-                        <form action="/workoutnotes/add-exercise/{{workout.id}}/" method="POST">{% csrf_token %}
+                        <form action="/add-exercise/{{workout.id}}/" method="POST">{% csrf_token %}
                             <div class="form_input">
                                 <label for="add_name">Exercise name</label><br />
                                 <input type="text" class="name_fields" id="add_name" name="name" value="Exercise"/>
@@ -147,7 +152,7 @@
                         <div class="add_form">
                             <p class="div_label">Save as workout routine</p>
                             <!-- show save as training plan form -->
-                            <form action="/workoutnotes/save-routine/{{workout.id}}/" method="POST">{% csrf_token %}
+                            <form action="/save-routine/{{workout.id}}/" method="POST">{% csrf_token %}
                                 <div class="form_input">
                                     <label for="plan_name">Workout routine name</label><br />
                                     <input type="text" class="input_wide" id="plan_name" name="name" value="My workout routine"/>
@@ -162,7 +167,7 @@
                     {% elif routines %}
                         <div class="add_form">
                             <!-- show load as training plan form -->
-                            <form action="/workoutnotes/load-routine/{{workout.id}}/" method="POST">{% csrf_token %}
+                            <form action="/load-routine/{{workout.id}}/" method="POST">{% csrf_token %}
                                 <div class="form_input">
                                     <label for="select_plan">Load training plan</label><br />
                                     <select name="selected_routine_id" class="input_wide" id="select_plan">
@@ -186,7 +191,7 @@
                 
             </section>
             <div class="form_input">
-                <form><button formaction="/workoutnotes/cancel-workout/{{workout.id}}/">Cancel</button></form>
+                <form><button formaction="/cancel-workout/{{workout.id}}/">Cancel</button></form>
             </div>
         </div>
     </body>

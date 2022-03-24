@@ -54,7 +54,7 @@ def new_workout_view(request):
     new_workout = Workout()
     new_workout.user = request.user
     new_workout.save()
-    return HttpResponseRedirect(f'/workoutnotes/edit-workout/{new_workout.id}/')
+    return HttpResponseRedirect(f'/edit-workout/{new_workout.id}/')
 
 def edit_workout_view(request, workout_id):
     workout = Workout.objects.get(id=workout_id, user=request.user)
@@ -70,7 +70,7 @@ def start_workout(request, workout_id):
     workout = Workout.objects.get(id=workout_id, user=request.user)
     workout.start_time = timezone.now()
     workout.save()
-    return HttpResponseRedirect(f'/workoutnotes/edit-workout/{workout_id}/')
+    return HttpResponseRedirect(f'/edit-workout/{workout_id}/')
 
 def stop_workout(request, workout_id):
     workout = Workout.objects.get(id=workout_id, user=request.user)
@@ -88,11 +88,12 @@ def stop_workout(request, workout_id):
             i += 1
 
         exercise.save()
-    return HttpResponseRedirect(f'/workoutnotes/edit-workout/{workout_id}/')
+    return HttpResponseRedirect(f'/edit-workout/{workout_id}/')
 
 def save_workout(request, workout_id):
     workout = Workout.objects.get(id=workout_id, user=request.user)
     workout.name = request.POST['name']
+    workout.notes = request.POST['notes']
     workout.save()
 
     if workout.routine:
@@ -100,12 +101,12 @@ def save_workout(request, workout_id):
         routine = workout_to_routine(workout_id, routine)
         routine.save()
 
-    return HttpResponseRedirect(f'/workoutnotes/workouts/{workout_id}/')
+    return HttpResponseRedirect(f'/workouts/{workout_id}/')
 
 def delete_workout(request, workout_id):
     workout = Workout.objects.get(id=workout_id, user=request.user)
     workout.delete()
-    return HttpResponseRedirect('/workoutnotes/all/')
+    return HttpResponseRedirect('/all/')
 
 def cancel_workout(request, workout_id):
     return delete_workout(request, workout_id)
@@ -129,7 +130,7 @@ def add_exercise_to_workout(request, workout_id):
         exercise.repsss[i] = reps
     exercise.save()
 
-    return HttpResponseRedirect(f'/workoutnotes/edit-workout/{workout_id}/')
+    return HttpResponseRedirect(f'/edit-workout/{workout_id}/')
 class AddExerciseView(CreateView):
     model = Exercise
     fields = ['name', 'weight', 'sets']
@@ -151,7 +152,7 @@ def save_routine(request, workout_id):
     routine.save()
     workout.save()
 
-    return HttpResponseRedirect(f'/workoutnotes/edit-workout/{workout_id}/')
+    return HttpResponseRedirect(f'/edit-workout/{workout_id}/')
     
 def load_routine(request, workout_id):
     workout = Workout.objects.get(id=workout_id)
@@ -171,7 +172,7 @@ def load_routine(request, workout_id):
         new_exercise.created_by = request.user
         new_exercise.save()
 
-    return HttpResponseRedirect(f'/workoutnotes/edit-workout/{workout_id}/')   
+    return HttpResponseRedirect(f'/edit-workout/{workout_id}/')   
 ##################################################
 
 def workout_to_routine(workout_id, routine):

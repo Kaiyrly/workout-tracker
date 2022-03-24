@@ -2,14 +2,14 @@
 
 {% block content %}
     <h1>My workouts</h1>
-    <table class="table table-borderless">
+    <table class="table table-striped table-hover">
         <th>Workout</th>
         <th>Date</th>
         <th>Duration</th>
         {% for workout in workouts %}
             <tr>
-                <td><a href="/workoutnotes/workouts/{{workout.id}}">{{workout.name}}</a></td>
-                <td>{{ workout.time_start|date:'Y-m-d' }}</td>
+                <td><a href="/workouts/{{workout.id}}">{{workout.name}}</a></td>
+                <td>{{workout.start_time|date:"m/d Y"}}</td>
                 <td>{{ workout.duration}}</td>
             </tr>
         {% endfor %}

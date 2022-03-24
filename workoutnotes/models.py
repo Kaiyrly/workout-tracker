@@ -9,7 +9,7 @@ class Workout(models.Model):
     duration = models.DurationField(blank=True, null=True)
     routine = models.ForeignKey('Routine', null=True, on_delete=models.SET_NULL)
     user = models.ForeignKey(User, null=True, on_delete=models.SET_NULL, related_name='workouts')
-
+    notes = models.CharField(max_length=1024, blank=True, null=True)
     def __str__(self):
         return self.name
 

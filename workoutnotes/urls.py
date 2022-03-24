@@ -6,9 +6,9 @@ from .views import HomeView, SignupView, WorkoutListView, AddExerciseView, worko
 app_name = "workoutnotes"
 urlpatterns = [
     path("", HomeView.as_view(), name="home"),
-    path("login", LoginView.as_view(), name="login"),
-    path("logout", LogoutView.as_view(), name="logout"),
-    path("signup", SignupView.as_view(), name="signup"),
+    path("login/", LoginView.as_view(), name="login"),
+    path("logout/", LogoutView.as_view(), name="logout"),
+    path("signup/", SignupView.as_view(), name="signup"),
     path("new-workout/", new_workout_view),
     path("edit-workout/<int:workout_id>/", edit_workout_view),
     path("all/", WorkoutListView.as_view(), name="workout_list"),
