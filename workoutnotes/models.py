@@ -8,7 +8,7 @@ class Workout(models.Model):
     finish_time = models.DateTimeField(blank=True, null=True)
     duration = models.DurationField(blank=True, null=True)
     routine = models.ForeignKey('Routine', null=True, on_delete=models.SET_NULL)
-
+    user = models.ForeignKey(User, null=True, on_delete=models.SET_NULL, related_name='workouts')
 
     def __str__(self):
         return self.name

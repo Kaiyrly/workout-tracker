@@ -26,14 +26,23 @@ class SignupView(FormView):
 
 class HomeView(LoginRequiredMixin, TemplateView):
     template_name = 'workoutnotes/home.html'
+    model = User
+    context_object_name = 'user'
 
 class WorkoutListView(LoginRequiredMixin, ListView):
     template_name = 'workoutnotes/workout_list.html'
     model = Workout
     context_object_name = 'workouts'
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['workouts'] = Workout.objects.filter(user=self.request.user)
+        return context
+
+
+
 def workout_detail_view(request, workout_id):
-    workout = Workout.objects.get(id=workout_id)
+    workout = Workout.objects.get(id=workout_id, user=request.user)
     exercises = Exercise.objects.filter(workout=workout)
     return render(
         request, 
@@ -43,11 +52,12 @@ def workout_detail_view(request, workout_id):
 
 def new_workout_view(request):
     new_workout = Workout()
+    new_workout.user = request.user
     new_workout.save()
     return HttpResponseRedirect(f'/workoutnotes/edit-workout/{new_workout.id}/')
 
 def edit_workout_view(request, workout_id):
-    workout = Workout.objects.get(id=workout_id)
+    workout = Workout.objects.get(id=workout_id, user=request.user)
     exercises = Exercise.objects.filter(workout=workout)
     routines = Routine.objects.all()
     return render(
@@ -57,13 +67,13 @@ def edit_workout_view(request, workout_id):
         )
 
 def start_workout(request, workout_id):
-    workout = Workout.objects.get(id=workout_id)
+    workout = Workout.objects.get(id=workout_id, user=request.user)
     workout.start_time = timezone.now()
     workout.save()
     return HttpResponseRedirect(f'/workoutnotes/edit-workout/{workout_id}/')
 
 def stop_workout(request, workout_id):
-    workout = Workout.objects.get(id=workout_id)
+    workout = Workout.objects.get(id=workout_id, user=request.user)
     workout.finish_time = timezone.now()
     workout.duration = workout.finish_time - workout.start_time
     workout.save()
@@ -81,7 +91,7 @@ def stop_workout(request, workout_id):
     return HttpResponseRedirect(f'/workoutnotes/edit-workout/{workout_id}/')
 
 def save_workout(request, workout_id):
-    workout = Workout.objects.get(id=workout_id)
+    workout = Workout.objects.get(id=workout_id, user=request.user)
     workout.name = request.POST['name']
     workout.save()
 
@@ -93,7 +103,7 @@ def save_workout(request, workout_id):
     return HttpResponseRedirect(f'/workoutnotes/workouts/{workout_id}/')
 
 def delete_workout(request, workout_id):
-    workout = Workout.objects.get(id=workout_id)
+    workout = Workout.objects.get(id=workout_id, user=request.user)
     workout.delete()
     return HttpResponseRedirect('/workoutnotes/all/')
 
@@ -101,7 +111,7 @@ def cancel_workout(request, workout_id):
     return delete_workout(request, workout_id)
 
 def add_exercise_to_workout(request, workout_id):
-    workout = Workout.objects.get(id=workout_id)
+    workout = Workout.objects.get(id=workout_id, user=request.user)
     exercise = Exercise()
 
     exercise.workout = workout
