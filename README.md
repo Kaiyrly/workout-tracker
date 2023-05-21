@@ -1,16 +1,35 @@
-# workout-tracker
+# Workout Tracker
 
-It is a Django application which allows users to create and track their workouts. It is developed by using Django, Bootstrap4 and PostgreSql.
-This application consists of bunch of modules like signup, sign in, signout, workout list screen, workout detail screen, new workout and routine, workout screen.
-	
-Sign up - Users who don't have account on the app can create new account by signing up. Sign up for will consists of few fields like username, password and confirm password. If user entered already used username we will show alert message like username agreed already exists.
-	
-Sign out- We can use this to logout from the application
-	
-Workout list - screen shows all workouts of the user and if User clicks on particular workout, It proceeds to the page with details about the workout
-	
-Workout details - shows the information about workout such as exercises, reps and weights for each exercise, duration of the training etc. User can edit or delete the workout.
-	
-New workout - Users can create new workout by himself or can upload his or other users’ saved workout routines and make some change. User can save the workout as routine if User wants to repeat the workout or wants to share the workout. 
-	
-Workout screen - User enters the reps for each set of exercises. 
+Workout Tracker is a Django application that allows users to create and track their workouts. It is developed using Django, Bootstrap4, and PostgreSQL. The application consists of several modules, including signup, sign-in, sign-out, workout list, workout detail, new workout, and routine.
+
+## Features
+
+### Sign up
+
+Users who don't have an account can create a new account by signing up. The signup form includes fields for username, password, and confirm password. If a username is already taken, an alert message is displayed.
+
+### Sign out
+
+Users can use this feature to log out from the application.
+
+### Workout list
+
+This screen displays all the workouts of the user. Clicking on a particular workout takes the user to a page with detailed information about that workout.
+
+### Workout details
+
+This screen provides information about the workout, such as exercises, reps, weights for each exercise, and the duration of the training. Users can edit or delete the workout.
+
+### New workout
+
+Users can create a new workout themselves or upload saved workout routines from themselves or other users. They can make changes to the workout and save it as a routine if they want to repeat the workout or share it with others.
+
+### Workout screen
+
+This screen allows users to enter the reps for each set of exercises.
+
+## Technologies Used
+
+- Django
+- Bootstrap4
+- PostgreSQL
